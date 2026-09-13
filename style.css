@@ -1,0 +1,114 @@
+body {
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    background: #0f1115;
+    color: #e6e6e6;
+    margin: 0;
+    padding: 24px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.status-box {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.status-ok {
+    background: #14311f;
+    border: 1px solid #22c55e;
+}
+
+.status-error {
+    background: #3a1414;
+    border: 1px solid #ef4444;
+}
+
+.status-meta {
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #1a1d24;
+    color: #e6e6e6;
+}
+
+.search-form select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #333;
+    background: #1a1d24;
+    color: #e6e6e6;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #262a33;
+}
+
+th {
+    color: #9ca3af;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+tr.rec-strong-buy {
+    border-left: 3px solid #22c55e;
+}
+
+tr.rec-buy {
+    border-left: 3px solid #3b82f6;
+}
+
+tr.rec-watch {
+    border-left: 3px solid #6b7280;
+}
+
+.empty-state, .result-count {
+    color: #9ca3af;
+    font-size: 14px;
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Screener - AI Trader Indonesia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>📊 Stock Screener</h1>
+        <form action="{{ url_for('scan') }}" method="post" class="scan-form">
+            <button type="submit">🔄 Jalankan Scan Sekarang</button>
+        </form>
+    </header>
+
+    {% if status.message %}
+    <div class="status-box {{ 'status-ok' if status.success else 'status-error' }}">
+        <strong>{{ 'Berhasil' if status.success else 'Gagal' }}:</strong>
+        {{ status.message }}
+        {% if status.timestamp %}
+            <span class="status-meta">
+                ({{ status.timestamp }}, {{ status.duration_seconds }} detik)
+            </span>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Cari kode saham..."
+            value="{{ query }}"
+        >
+        <select name="sort">
+            <option value="opportunity_score" {{ 'selected' if sort_by == 'opportunity_score' }}>
+                Urutkan: Opportunity Score
+            </option>
+            <option value="buy_now_priority_score" {{ 'selected' if sort_by == 'buy_now_priority_score' }}>
+                Urutkan: Buy Now Priority
+            </option>
+            <option value="rr1" {{ 'selected' if sort_by == 'rr1' }}>
+                Urutkan: Risk/Reward
+            </option>
+        </select>
+        <button type="submit">Terapkan</button>
+    </form>
+
+    {% if not results %}
+        <p class="empty-state">
+            Belum ada hasil screening. Klik "Jalankan Scan Sekarang" di atas untuk memulai.
+        </p>
+    {% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Kode</th>
+                <th>Rekomendasi</th>
+                <th>Opportunity Score</th>
+                <th>Buy Now Priority</th>
+                <th>RSI</th>
+                <th>R:R (TP1)</th>
+                <th>Valuasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr class="rec-{{ r.get('recommendation', '')|lower|replace(' ', '-') }}">
+                <td>{{ r.get('kode', '-') }}</td>
+                <td>{{ r.get('recommendation', '-') }}</td>
+                <td>{{ r.get('opportunity_score', '-') }}</td>
+                <td>{{ r.get('buy_now_priority_score', '-') }}</td>
+                <td>{{ r.get('rsi', '-') }}</td>
+                <td>{{ r.get('rr1', '-') }}</td>
+                <td>{{ r.get('valuation_label', '-') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="result-count">Menampilkan {{ results|length }} saham.</p>
+    {% endif %}
+
+</body>
+</html>
